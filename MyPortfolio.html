@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meekal's Professional Portfolio</title>
+    <!-- Modern Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Playfair+Display:ital,wght@1,600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            /* Slate 900 */
+            --bg-accent: #1e293b;
+            /* Slate 800 */
+            --primary: #8b5cf6;
+            /* Violet 500 */
+            --primary-glow: rgba(139, 92, 246, 0.4);
+            --secondary: #3b82f6;
+            /* Blue 500 */
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border: rgba(255, 255, 255, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            cursor: none !important;
+            /* Designed cursor overrides default */
+            font-family: 'Outfit', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            overflow-x: hidden;
+            display: flex;
+            justify-content: center;
+            background-image:
+                radial-gradient(circle at 15% 50%, rgba(139, 92, 246, 0.15), transparent 25%),
+                radial-gradient(circle at 85% 30%, rgba(59, 130, 246, 0.15), transparent 25%);
+        }
+
+        /* CUSTOM CURSOR */
+        .cursor-dot,
+        .cursor-outline {
+            position: fixed;
+            top: 0;
+            left: 0;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            z-index: 9999;
+            pointer-events: none;
+        }
+
+        .cursor-dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--primary);
+        }
+
+        .cursor-outline {
+            width: 40px;
+            height: 40px;
+            border: 1px solid rgba(139, 92, 246, 0.5);
+            transition: transform 0.2s, background-color 0.2s;
+        }
+
+        /* Fallback for touch devices */
+        @media (pointer: coarse) {
+
+            .cursor-dot,
+            .cursor-outline {
+                display: none;
+            }
+
+            * {
+                cursor: auto !important;
+            }
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1000px;
+            padding: 40px 20px;
+        }
+
+        /* HEADER */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 60px;
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 800;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        header nav a {
+            text-decoration: none;
+            color: var(--text-muted);
+            font-weight: 600;
+            margin-left: 30px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        header nav a:hover,
+        header nav a.active {
+            color: var(--text-main);
+        }
+
+        header nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary);
+            transition: width 0.3s;
+        }
+
+        header nav a:hover::after,
+        header nav a.active::after {
+            width: 100%;
+        }
+
+        /* HERO SECTION */
+        .hero {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 60px;
+            margin-bottom: 100px;
+        }
+
+        .hero-text {
+            flex: 1;
+        }
+
+        .hero-text h3 {
+            color: var(--primary);
+            font-size: 18px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .hero-text h1 {
+            font-size: 54px;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 20px;
+        }
+
+        .hero-text p {
+            color: var(--text-muted);
+            font-size: 18px;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            max-width: 500px;
+        }
+
+        .btn {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: #fff;
+            padding: 14px 32px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 20px var(--primary-glow);
+            border: none;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 25px var(--primary-glow);
+        }
+
+        .hero-img-container {
+            position: relative;
+            width: 320px;
+            height: 320px;
+            border-radius: 50%;
+            padding: 10px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            box-shadow: 0 0 50px var(--primary-glow);
+            animation: pulse 4s infinite alternate;
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 40px var(--primary-glow);
+                transform: translateY(0);
+            }
+
+            100% {
+                box-shadow: 0 0 70px var(--primary-glow);
+                transform: translateY(-10px);
+            }
+        }
+
+        .hero-img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 6px solid var(--bg-color);
+        }
+
+        /* UTILITIES */
+        .section-title {
+            font-size: 36px;
+            font-weight: 800;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .section-title span {
+            color: var(--primary);
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+        }
+
+        /* SKILLS SECTION */
+        .skills {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 100px;
+        }
+
+        .skill-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 30px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            transition: all 0.4s ease;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.05);
+            border-color: var(--primary);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .skill-icon {
+            font-size: 40px;
+            color: var(--primary);
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+
+        .skill-card h4 {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        .skill-card p {
+            color: var(--text-muted);
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        /* PROJECTS SECTION */
+        .projects {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            margin-bottom: 100px;
+        }
+
+        .project-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.4s;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--secondary);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .project-img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .project-info {
+            padding: 30px;
+        }
+
+        .project-info h4 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .project-info p {
+            color: var(--text-muted);
+            font-size: 15px;
+            margin-bottom: 20px;
+        }
+
+        .project-link {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: gap 0.3s;
+        }
+
+        .project-link:hover {
+            gap: 12px;
+        }
+
+        /* CONTACT SECTION */
+        .contact {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 60px;
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .contact-items {
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .contact-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .contact-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: rgba(139, 92, 246, 0.1);
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            transition: all 0.3s;
+        }
+
+        .contact-item:hover .contact-icon {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 10px 20px var(--primary-glow);
+        }
+
+        .contact-item a,
+        .contact-item span {
+            color: var(--text-main);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .hero-text h1 {
+                font-size: 40px;
+            }
+
+            .hero-text p {
+                margin: 0 auto 30px;
+            }
+
+            header {
+                flex-direction: column;
+                gap: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- CUSTOM CURSOR ELEMENTS -->
+    <div class="cursor-dot" id="cursor-dot"></div>
+    <div class="cursor-outline" id="cursor-outline"></div>
+
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <div class="logo">MEEKAL SHAHJAHAN</div>
+            <nav>
+                <a href="#" class="active">Home</a>
+                <a href="#skills">Skills</a>
+                <a href="#projects">Work</a>
+                <a href="#contact">Contact</a>
+            </nav>
+        </header>
+
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-text">
+                <h3>Aspiring Web Developer</h3>
+                <h1>Hello, I'm <br><span style="color: var(--primary);">Meekal!</span></h1>
+                <p>I am a computer science student with a passion for web development. Designing dynamic, clean, and
+                    professional digital experiences.</p>
+                <a href="https://www.linkedin.com/in/meekal-shahjahan-a81033373" target="_blank" class="btn">Let's
+                    Connect <i class="fa-solid fa-arrow-right" style="margin-left: 8px;"></i></a>
+            </div>
+            <div class="hero-img-container">
+                <img src="m.jpeg" alt="Meekal Anime Profile" class="hero-img">
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <h2 id="skills" class="section-title">My <span>Expertise</span></h2>
+        <section class="skills">
+            <div class="skill-card">
+                <div class="skill-icon"><i class="fa-brands fa-html5"></i></div>
+                <h4>Modern HTML</h4>
+                <p>Semantic, accessible markup tailored for exceptional SEO and structural integrity.</p>
+            </div>
+            <div class="skill-card">
+                <div class="skill-icon"><i class="fa-brands fa-css3-alt"></i></div>
+                <h4>Advanced CSS</h4>
+                <p>Crafting responsive layouts, beautiful animations, and modern glassmorphism designs.</p>
+            </div>
+            <div class="skill-card">
+                <div class="skill-icon"><i class="fa-brands fa-js"></i></div>
+                <h4>JavaScript</h4>
+                <p>Building interactive components and dynamic user interfaces with clean code.</p>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <h2 id="projects" class="section-title">Featured <span>Work</span></h2>
+        <section class="projects">
+            <div class="project-card">
+                <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+                    alt="Portfolio Website" class="project-img">
+                <div class="project-info">
+                    <h4>Premium Portfolio</h4>
+                    <p>Designed a highly-interactive, dark-themed personal portfolio with custom cursor implementations.
+                    </p>
+                    <a href="#" class="project-link">View Case Study <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+            </div>
+            <div class="project-card">
+                <img src="assets/cyber_interface.png" alt="To-Do App" class="project-img">
+                <div class="project-info">
+                    <h4>Task Management Grid</h4>
+                    <p>Developed an intuitive tracking application for daily productivity using ES6+ JavaScript.</p>
+                    <a href="#" class="project-link">View Case Study <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="contact">
+            <h2 class="section-title" style="margin-bottom: 20px;">Get In <span>Touch</span></h2>
+            <p style="color: var(--text-muted); max-width: 500px; margin: 0 auto;">Ready to start your next project with
+                me? I'm currently open for new opportunities and freelance work.</p>
+
+            <div class="contact-items">
+                <div class="contact-item">
+                    <div class="contact-icon"><i class="fa-solid fa-envelope"></i></div>
+                    <a href="mailto:meekalshahjahan01@Gmail.com">Email Me</a>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon"><i class="fa-solid fa-phone"></i></div>
+                    <span>03286947493</span>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon"><i class="fa-solid fa-location-dot"></i></div>
+                    <span>Lahore, Pakistan</span>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Cursor Script -->
+    <script>
+        const cursorDot = document.getElementById("cursor-dot");
+        const cursorOutline = document.getElementById("cursor-outline");
+
+        // Use requestAnimationFrame for smooth custom cursor
+        let mouseX = 0;
+        let mouseY = 0;
+        let outlineX = 0;
+        let outlineY = 0;
+
+        window.addEventListener("mousemove", function (e) {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+
+            cursorDot.style.left = mouseX + "px";
+            cursorDot.style.top = mouseY + "px";
+        });
+
+        function animateCursor() {
+            let distX = mouseX - outlineX;
+            let distY = mouseY - outlineY;
+
+            outlineX = outlineX + distX * 0.15; // smoothness factor
+            outlineY = outlineY + distY * 0.15;
+
+            cursorOutline.style.left = outlineX + "px";
+            cursorOutline.style.top = outlineY + "px";
+
+            requestAnimationFrame(animateCursor);
+        }
+
+        animateCursor();
+
+        // Add hover effect states for buttons and links
+        const interactables = document.querySelectorAll('a, button, .skill-card, .project-card, .contact-item');
+
+        interactables.forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                cursorOutline.style.transform = 'translate(-50%, -50%) scale(1.5)';
+                cursorOutline.style.backgroundColor = 'rgba(139, 92, 246, 0.1)';
+            });
+            el.addEventListener('mouseleave', () => {
+                cursorOutline.style.transform = 'translate(-50%, -50%) scale(1)';
+                cursorOutline.style.backgroundColor = 'transparent';
+            });
+        });
+    </script>
+</body>
+
+</html>
